@@ -16,6 +16,7 @@ import csv
 f = open('Report.txt', 'w')
 
 def stock_price(company_name):
+    
     df = pd.DataFrame.from_csv(company_name)
     df = df[['Open', 'High', 'Low', 'Close']]
     
@@ -32,6 +33,7 @@ def stock_price(company_name):
 #    df['PCT_change'] = (df['Close'] - df['Open']) / df['Open'] * 100.0
 
     X = np.array(df.drop(['ForecastOpen', 'ForecastHigh', 'ForecastLow', 'ForecastClose'], 1))
+    #X = preprocessing.scale(X)
     X = X[:-days]
     df.dropna(inplace=True)
     y = np.array(df[['ForecastOpen', 'ForecastHigh', 'ForecastLow', 'ForecastClose']])
@@ -78,7 +80,12 @@ def main():
             s = ('Current Day: '+prediction+'\n')            
             f.write(s)            
             print ('-----------------------------------------------------')
-main()
+#main()
+            
+
+pred = stock_price('C:\\Users\\Melwyn\\Desktop\\BEPROJECT\\Data\\Bank\\NSE-AXISBANK.csv')      
+print (pred)            
+            
 f.close()
 
 #    
